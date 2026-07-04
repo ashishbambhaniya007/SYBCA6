@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAVEBOX | Fast. Fresh. Flavorful.</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+        :root {
+            --primary: #FF3E3E; 
+            --secondary: #FFAA00; 
+            --dark: #121212; 
+            --light: #F4F4F6;
+            --white: #FFFFFF;
+            --grey: #6E6E73;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        .logo {
+            color: var(--secondary);
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .logo span { color: var(--white); }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #E5E5EA;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--secondary); }
+
+        .cta-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+        }
+        .cta-btn:hover {
+            background-color: #E03232;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 62, 62, 0.4);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+        }
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 35px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #E5E5EA;
+        }
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+        .btn-secondary:hover {
+            background-color: #E69900;
+            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.4);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .section-title span { color: var(--primary); }
+
+        /* --- MENU GRID --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .menu-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .menu-img-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+        .menu-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .menu-card:hover .menu-img {
+            transform: scale(1.08);
+        }
+        .menu-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .menu-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .menu-info p {
+            color: var(--grey);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .menu-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+        .price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        /* --- PROMO BANNER --- */
+        .promo-section { padding-top: 20px; }
+        .promo-banner {
+            background: linear-gradient(135deg, var(--secondary), #FF8800);
+            color: var(--dark);
+            padding: 50px 40px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 170, 0, 0.2);
+        }
+        .promo-banner h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .promo-banner p {
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-weight: 500;
+        }
+
+        /* --- SIDE BAR CART --- */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 1000vh;
+            max-height: 100%;
+            background-color: var(--white);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+            z-index: 2000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+        }
+        .cart-sidebar.active { right: 0; }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 15px;
+        }
+        .close-cart {
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--dark);
+            color: var(--grey);
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 60px;
+            border-top: 1px solid #2a2a2a;
+        }
+        footer p { margin-bottom: 10px; color: #E5E5EA;}
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.6rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .hero-btns { flex-direction: column; gap: 10px; }
+            .cart-sidebar { width: 100%; right: -100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">CRAVE<span>BOX</span></a>
+            <ul class="nav-links">
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#deals">Deals</a></li>
+                <li><button class="cta-btn btn-secondary" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</button></li>
+            </ul>
+            <a href="#menu" class="cta-btn">Order Now</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Smashed To Perfection.</h1>
+            <p>Juicy double patties, melted cheddar, and crispy golden fries. Delivered hot to your doorstep in 30 minutes or less.</p>
+            <div class="hero-btns">
+                <a href="#menu" class="cta-btn btn-secondary">Explore Menu</a>
+                <a href="#deals" class="cta-btn">View Today's Deals</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2 class="section-title">Fan <span>Favorites</span></h2>
+        <div class="menu-grid">
+            
+            <div class="menu-card">
+                <div class="menu-img-container">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop" alt="Burger" class="menu-img">
+                </div>
+                <div class="menu-info">
+                    <h3>The Monster Smash</h3>
+                    <p>Double beef patty, aged cheddar, secret CraveSauce, toasted brioche bun.</p>
+                    <div class="menu-footer">
+                        <span class="price">$8.99</span>
+                        <button class="cta-btn" onclick="addToCart('The Monster Smash', 8.99)">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-img-container">
+                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop" alt="Fries" class="menu-img">
+                </div>
+                <div class="menu-info">
+                    <h3>Loaded Fire Fries</h3>
+                    <p>Crispy natural-cut fries topped with melted cheese, spicy jalapenos, and bacon crisp.</p>
+                    <div class="menu-footer">
+                        <span class="price">$5.49</span>
+                        <button class="cta-btn" onclick="addToCart('Loaded Fire Fries', 5.49)">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-img-container">
+                    <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=600&auto=format&fit=crop" alt="Shake" class="menu-img">
+                </div>
+                <div class="menu-info">
+                    <h3>Salted Caramel Shake</h3>
+                    <p>Hand-spun house vanilla ice cream blended with deep artisanal sea-salt caramel.</p>
+                    <div class="menu-footer">
+                        <span class="price">$4.99</span>
+                        <button class="cta-btn" onclick="addToCart('Salted Caramel Shake', 4.99)">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="deals" class="promo-section">
+        <div class="promo-banner">
+            <h2>The Midnight Squad Box</h2>
+            <p>Get 4 Classic Burgers, 2 Large Fries, 10 Crunchy Mozzarella Sticks, and 4 Drinks. The ultimate party saver.</p>
+            <button class="cta-btn" style="background-color: var(--dark); color: var(--white);" onclick="addToCart('The Midnight Squad Box', 34.99)">Claim for $34.99</button>
+        </div>
+    </section>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Order</h2>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItemsList">
+            <p style="color: var(--grey); text-align: center; margin-top: 20px;">Your cart is empty right now!</p>
+        </div>
+        <div style="margin-top: 20px; border-top: 2px solid var(--light); padding-top: 20px;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem; margin-bottom: 20px;">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="cta-btn" style="width: 100%; padding: 15px;" onclick="alert('Checkout integration placeholder!')">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CraveBox Inc. Fresh ingredients, late-night solutions.</p>
+        <p style="font-size: 0.85rem; color: #6E6E73;">Open daily: 10:30 AM – 3:00 AM.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('active');
+        }
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            updateCartUI();
+            
+            // Auto open cart sidebar on add
+            document.getElementById('cartSidebar').classList.add('active');
+        }
+
+        function updateCartUI() {
+            // Update counts
+            document.getElementById('cart-count').innerText = cart.length;
+            
+            const listElement = document.getElementById('cartItemsList');
+            if(cart.length === 0) {
+                listElement.innerHTML = '<p style="color: var(--grey); text-align: center; margin-top: 20px;">Your cart is empty right now!</p>';
+                document.getElementById('cartTotal').innerText = "$0.00";
+                return;
+            }
+            
+            // Build item list rows
+            let html = '';
+            let total = 0;
+            cart.forEach((item) => {
+                total += item.price;
+                html += `
+                    <div class="cart-item-row">
+                        <span>${item.name}</span>
+                        <strong>$${item.price.toFixed(2)}</strong>
+                    </div>
+                `;
+            });
+            
+            listElement.innerHTML = html;
+            document.getElementById('cartTotal').innerText = `$${total.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
